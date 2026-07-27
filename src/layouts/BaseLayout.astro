@@ -1,0 +1,119 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = "Developer & 3D artist — portfolio, blog, and resume.",
+  image = "/og-default.png",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title} · Vivek Maurya</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / social previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:url" content={canonicalURL} />
+<!-- 
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} /> -->
+
+    <!-- RSS autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="Blog RSS" href="/rss.xml" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Vivek Maurya</a>
+        <div class="nav-links">
+          <a href="/portfolio/">Portfolio</a>
+          <a href="/blog/">Blog</a>
+          <a href="/resume/">Resume</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>&copy; {new Date().getFullYear()} Vivek Maurya</p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :root {
+    --color-bg: #0b0b0f;
+    --color-text: #e8e8ec;
+    --color-accent: #6366f1;
+    --max-width: 72ch;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+
+  header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+
+  header nav a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent);
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1rem;
+    min-height: 60vh;
+  }
+
+  footer {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    opacity: 0.6;
+    font-size: 0.85rem;
+  }
+</style>
