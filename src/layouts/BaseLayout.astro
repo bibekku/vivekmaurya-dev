@@ -1,4 +1,6 @@
 ---
+import ShaderBackground from '../components/ShaderBackground.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -40,6 +42,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="alternate" type="application/rss+xml" title="Blog RSS" href="/rss.xml" />
   </head>
   <body>
+    <ShaderBackground />
     <header>
       <nav>
         <a href="/">Vivek Maurya</a>
@@ -115,5 +118,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     padding: 2rem 1rem;
     opacity: 0.6;
     font-size: 0.85rem;
+  }
+
+  header, main, footer {
+    position: relative;
+    z-index: 1;
   }
 </style>

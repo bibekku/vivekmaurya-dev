@@ -7,10 +7,11 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 ---
 <BaseLayout title="Blog">
   <h1>Blog</h1>
-  <ul>
+  <ul class="blog-list">
     {posts.map((post) => (
       <li>
         <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+        <br/>
         <time datetime={post.data.pubDate.toISOString()}>
           {post.data.pubDate.toLocaleDateString()}
         </time>
@@ -19,3 +20,37 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     ))}
   </ul>
 </BaseLayout>
+
+<style>
+ul.blog-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.blog-list li {
+  background: rgba(11, 11, 15, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.blog-list a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 0.15em;
+}
+
+.blog-list a:visited {
+  color: #b8b4c9;
+  text-decoration-color: #7a7690;
+}
+
+.blog-list a:hover,
+.blog-list a:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+</style>
