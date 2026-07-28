@@ -35,8 +35,15 @@ const randomWelcomeMessages = [
   "it's pronounced 'JIF' and i'll die on this hill",
 ];
 
-randomWelcomeMessages.sort(() => Math.random() - 0.5);
+const initial = randomWelcomeMessages[Math.floor(Math.random() * randomWelcomeMessages.length)];
+
 ---
 <BaseLayout title="Vivek Maurya's Website">
-  <h1>{randomWelcomeMessages[Math.floor(Math.random() * randomWelcomeMessages.length)]}</h1>
+  <h1 id="welcome-message">{initial}</h1>
 </BaseLayout>
+
+<script define:vars={{ randomWelcomeMessages }}>
+  const el = document.getElementById('welcome-message');
+  el.textContent =
+    randomWelcomeMessages[Math.floor(Math.random() * randomWelcomeMessages.length)];
+</script>
