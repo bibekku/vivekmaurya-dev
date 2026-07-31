@@ -22,3 +22,60 @@ const { Content } = await render(post);
     <Content />
   </article>
 </BaseLayout>
+
+<script>
+  const dialog = document.createElement('dialog');
+  dialog.className = 'lightbox';
+  const bigImg = document.createElement('img');
+  dialog.append(bigImg);
+  document.body.append(dialog);
+
+  dialog.addEventListener('click', () => dialog.close());
+
+  document.querySelectorAll('article img').forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      bigImg.src = thumb.src;
+      bigImg.alt = thumb.alt;
+      dialog.showModal();
+    });
+  });
+</script>
+
+<style>
+  .lightbox {
+    border: none;
+    background: transparent;
+    padding: 0;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+  .lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+  }
+  .lightbox img {
+    display: block;
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: zoom-out;
+  }
+  article :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem auto;
+    border-radius: 6px;
+    cursor: zoom-in;
+  }
+
+  article :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 0.15em;
+  }
+
+  article :global(a:visited) {
+    color: #b8b4c9;
+    text-decoration-color: #7a7690;
+  }
+</style>
